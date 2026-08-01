@@ -1,0 +1,80 @@
+[2026-07-30 07:54:48] INFO     __main__ - Sequoia-X V2 启动                     
+[2026-07-30 07:54:48] INFO     sequoia_x.data.engine -                          
+                               数据库初始化完成：data/sequoia_v2.db             
+                      INFO     __main__ - 开始拉取最新快照...                   
+[2026-07-30 07:54:52] INFO     sequoia_x.data.engine - 需要更新 5202            
+                               只股票，启动多进程并行拉取...                    
+login failed!
+logout failed!
+login failed!
+logout failed!
+login failed!
+logout failed!
+login failed!
+logout failed!
+login failed!
+logout failed!
+服务器连接失败，请稍后再试。
+login failed!
+logout failed!
+login failed!
+logout failed!
+login failed!
+logout failed!
+[2026-07-30 07:55:50] INFO     sequoia_x.data.engine - 无新数据（可能非交易日） 
+[2026-07-30 07:55:50] INFO     __main__ - 快照同步完成，写入 0 只股票           
+                      INFO     __main__ - 执行策略：MaVolumeStrategy            
+[2026-07-30 07:56:18] INFO     sequoia_x.strategy.ma_volume - MaVolumeStrategy  
+                               选出 22 只股票                                   
+[2026-07-30 07:56:18] INFO     __main__ - MaVolumeStrategy 选出 22 只股票       
+login failed!
+logout failed!
+[2026-07-30 07:56:20] INFO     sequoia_x.notify.feishu - 飞书推送成功           
+                               [ma_volume]，共 22 只股票                        
+[2026-07-30 07:56:20] INFO     __main__ - 执行策略：TurtleTradeStrategy         
+login failed!
+logout failed!
+[2026-07-30 07:56:56] INFO     sequoia_x.strategy.turtle_trade -                
+                               TurtleTradeStrategy 选出 98 只股票               
+[2026-07-30 07:56:56] INFO     __main__ - TurtleTradeStrategy 选出 98 只股票    
+login failed!
+logout failed!
+[2026-07-30 07:57:00] INFO     sequoia_x.notify.feishu - 飞书推送成功           
+                               [turtle]，共 98 只股票                           
+[2026-07-30 07:57:00] INFO     __main__ - 执行策略：HighTightFlagStrategy       
+[2026-07-30 07:57:16] INFO     sequoia_x.strategy.high_tight_flag -             
+                               HighTightFlagStrategy 选出 0 只股票              
+[2026-07-30 07:57:16] INFO     __main__ - HighTightFlagStrategy 选出 0 只股票   
+                      INFO     __main__ - HighTightFlagStrategy                 
+                               无选股结果，跳过推送                             
+                      INFO     __main__ - 执行策略：LimitUpShakeoutStrategy     
+[2026-07-30 07:57:30] INFO     sequoia_x.strategy.limit_up_shakeout -           
+                               LimitUpShakeoutStrategy 选出 3 只股票            
+[2026-07-30 07:57:30] INFO     __main__ - LimitUpShakeoutStrategy 选出 3 只股票 
+login failed!
+logout failed!
+[2026-07-30 07:57:30] INFO     sequoia_x.notify.feishu - 飞书推送成功           
+                               [shakeout]，共 3 只股票                          
+                      INFO     __main__ - 执行策略：UptrendLimitDownStrategy    
+[2026-07-30 07:57:56] INFO     sequoia_x.strategy.uptrend_limit_down -          
+                               UptrendLimitDownStrategy 选出 3 只股票           
+[2026-07-30 07:57:56] INFO     __main__ - UptrendLimitDownStrategy 选出 3 只股票
+login failed!
+logout failed!
+[2026-07-30 07:57:57] INFO     sequoia_x.notify.feishu - 飞书推送成功           
+                               [limit_down]，共 3 只股票                        
+[2026-07-30 07:57:57] INFO     __main__ - 执行策略：RpsBreakoutStrategy         
+[2026-07-30 07:58:07] INFO     sequoia_x.strategy.rps_breakout -                
+                               RpsBreakoutStrategy 选出 42 只股票               
+[2026-07-30 07:58:07] INFO     __main__ - RpsBreakoutStrategy 选出 42 只股票    
+login failed!
+logout failed!
+[2026-07-30 07:58:09] INFO     sequoia_x.notify.feishu - 飞书推送成功 [rps]，共 
+                               42 只股票                                        
+[2026-07-30 07:58:09] INFO     __main__ - 执行策略：PrivatePlacementStrategy    
+  0%|          | 0/12 [00:00<?, ?it/s]  8%|▊         | 1/12 [00:00<00:02,  3.83it/s] 17%|█▋        | 2/12 [00:00<00:04,  2.47it/s] 25%|██▌       | 3/12 [00:01<00:03,  2.89it/s] 33%|███▎      | 4/12 [00:01<00:02,  3.08it/s] 42%|████▏     | 5/12 [00:01<00:02,  3.00it/s] 50%|█████     | 6/12 [00:01<00:01,  3.06it/s] 58%|█████▊    | 7/12 [00:02<00:01,  2.99it/s] 67%|██████▋   | 8/12 [00:02<00:01,  2.41it/s] 75%|███████▌  | 9/12 [00:03<00:01,  2.51it/s] 83%|████████▎ | 10/12 [00:03<00:00,  2.75it/s] 92%|█████████▏| 11/12 [00:03<00:00,  2.95it/s]100%|██████████| 12/12 [00:04<00:00,  3.09it/s]                                               [2026-07-30 07:58:14] INFO     sequoia_x.strategy.private_placement -           
+                               PrivatePlacementStrategy 近期无新定增公告        
+[2026-07-30 07:58:14] INFO     __main__ - PrivatePlacementStrategy 选出 0 只股票
+                      INFO     __main__ - PrivatePlacementStrategy              
+                               无选股结果，跳过推送                             
+                      INFO     __main__ - Sequoia-X V2 运行完成                 

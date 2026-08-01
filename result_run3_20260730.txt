@@ -1,0 +1,79 @@
+[2026-07-30 23:50:18] INFO     __main__ - Sequoia-X V2 启动                     
+[2026-07-30 23:50:18] INFO     sequoia_x.data.engine -                          
+                               数据库初始化完成：data/sequoia_v2.db             
+                      INFO     __main__ - 开始拉取最新快照...                   
+[2026-07-30 23:50:19] INFO     sequoia_x.data.engine - 需要更新 5202            
+                               只股票，启动多进程并行拉取...                    
+login failed!
+logout failed!
+login failed!
+logout failed!
+login failed!
+logout failed!
+login failed!
+logout failed!
+login failed!
+logout failed!
+login failed!
+logout failed!
+login failed!
+logout failed!
+服务器连接失败，请稍后再试。
+timed out
+接收数据异常，请稍后再试。
+timed out
+接收数据异常，请稍后再试。
+timed out
+接收数据异常，请稍后再试。
+timed out
+接收数据异常，请稍后再试。
+timed out
+接收数据异常，请稍后再试。
+logout failed!
+[2026-07-30 23:52:18] INFO     sequoia_x.data.engine - 无新数据（可能非交易日） 
+[2026-07-30 23:52:18] INFO     __main__ - 快照同步完成，写入 0 只股票           
+                      INFO     __main__ - 执行策略：MaVolumeStrategy            
+[2026-07-30 23:52:46] INFO     sequoia_x.strategy.ma_volume - MaVolumeStrategy  
+                               选出 22 只股票                                   
+[2026-07-30 23:52:46] INFO     __main__ - MaVolumeStrategy 选出 22 只股票       
+                      INFO     __main__ - 执行策略：TurtleTradeStrategy         
+login failed!
+logout failed!
+[2026-07-30 23:53:16] INFO     sequoia_x.strategy.turtle_trade -                
+                               TurtleTradeStrategy 选出 98 只股票               
+[2026-07-30 23:53:16] INFO     __main__ - TurtleTradeStrategy 选出 98 只股票    
+                      INFO     __main__ - 执行策略：HighTightFlagStrategy       
+[2026-07-30 23:53:40] INFO     sequoia_x.strategy.high_tight_flag -             
+                               HighTightFlagStrategy 选出 0 只股票              
+[2026-07-30 23:53:40] INFO     __main__ - HighTightFlagStrategy 选出 0 只股票   
+                      INFO     __main__ - 执行策略：LimitUpShakeoutStrategy     
+[2026-07-30 23:54:03] INFO     sequoia_x.strategy.limit_up_shakeout -           
+                               LimitUpShakeoutStrategy 选出 3 只股票            
+[2026-07-30 23:54:03] INFO     __main__ - LimitUpShakeoutStrategy 选出 3 只股票 
+                      INFO     __main__ - 执行策略：UptrendLimitDownStrategy    
+[2026-07-30 23:54:33] INFO     sequoia_x.strategy.uptrend_limit_down -          
+                               UptrendLimitDownStrategy 选出 3 只股票           
+[2026-07-30 23:54:33] INFO     __main__ - UptrendLimitDownStrategy 选出 3 只股票
+                      INFO     __main__ - 执行策略：RpsBreakoutStrategy         
+[2026-07-30 23:54:43] INFO     sequoia_x.strategy.rps_breakout -                
+                               RpsBreakoutStrategy 选出 42 只股票               
+[2026-07-30 23:54:43] INFO     __main__ - RpsBreakoutStrategy 选出 42 只股票    
+                      INFO     __main__ - 执行策略：PrivatePlacementStrategy    
+  0%|          | 0/12 [00:00<?, ?it/s]  8%|▊         | 1/12 [00:00<00:04,  2.39it/s] 17%|█▋        | 2/12 [00:00<00:04,  2.33it/s] 25%|██▌       | 3/12 [00:01<00:03,  2.48it/s] 33%|███▎      | 4/12 [00:01<00:02,  2.71it/s] 42%|████▏     | 5/12 [00:01<00:02,  2.60it/s] 50%|█████     | 6/12 [00:02<00:02,  2.59it/s] 58%|█████▊    | 7/12 [00:02<00:01,  2.63it/s] 67%|██████▋   | 8/12 [00:03<00:02,  1.99it/s] 75%|███████▌  | 9/12 [00:03<00:01,  2.29it/s] 83%|████████▎ | 10/12 [00:04<00:00,  2.51it/s] 92%|█████████▏| 11/12 [00:04<00:00,  2.63it/s]100%|██████████| 12/12 [00:04<00:00,  2.92it/s]                                               [2026-07-30 23:54:49] INFO     sequoia_x.strategy.private_placement -           
+                               PrivatePlacementStrategy 近期无新定增公告        
+[2026-07-30 23:54:49] INFO     __main__ - PrivatePlacementStrategy 选出 0 只股票
+[2026-07-30 23:54:50] INFO     sequoia_x.notify.feishu -                        
+                               在知识库父页面下创建子页面：2026-07-30           
+                      ERROR    sequoia_x.notify.feishu - 创建知识库子节点失败:  
+                               {'code': 131006, 'msg': 'permission denied: node 
+                               permission denied, tenant needs edit             
+                               permission.', 'error': {'log_id':                
+                               '20260730235450A4902EFE256B7393A484',            
+                               'troubleshooter': '排查建议查看(Troubleshooting  
+                               suggestions):                                    
+                               https://open.feishu.cn/search?from=openapi&log_id
+                               =20260730235450A4902EFE256B7393A484&code=131006&m
+                               ethod_id=6976461983962234881'}}                  
+                      ERROR    sequoia_x.notify.feishu -                        
+                               创建知识库子页面失败，终止推送                   
+[2026-07-30 23:54:50] INFO     __main__ - Sequoia-X V2 运行完成                 

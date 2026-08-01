@@ -6,8 +6,14 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     db_path: str = "data/sequoia_v2.db"
     start_date: str = "2024-01-01"
-    feishu_webhook_url: str  # 必填字段，缺失时抛出 ValidationError
+    feishu_webhook_url: str = ""  # 飞书 Webhook（旧模式可选；新模式用应用身份）
     strategy_webhooks: dict[str, str] = {}
+
+    # 飞书应用身份（用于创建知识库子页面 + 以应用身份发送群消息）
+    feishu_app_id: str = ""       # cli_ 开头的 App ID
+    feishu_app_secret: str = ""   # App Secret
+    wiki_parent_node: str = ""    # 知识库父页面 node token（取自 https://my.feishu.cn/wiki/<node_token>）
+    group_chat_id: str = ""       # 目标群聊 ID（oc_ 开头）
 
     model_config = SettingsConfigDict(
         env_file=".env",

@@ -6,6 +6,7 @@
 """
 
 import argparse
+import json
 import sys
 from dotenv import load_dotenv
 load_dotenv()
@@ -74,23 +75,30 @@ def main() -> None:
         ]
 
         notifier = FeishuNotifier(settings)
+        daily_signals: dict[str, list[str]] = {}  # signal_log 用
 
-        # 5. 遍历策略，有结果则推送至对应机器人
+        # 5. 遍历策略，汇总选股结果
         for strategy in strategies:
             strategy_name = type(strategy).__name__
             logger.info(f"执行策略：{strategy_name}")
 
             selected: list[str] = strategy.run()
+            daily_signals[strategy_name] = selected
             logger.info(f"{strategy_name} 选出 {len(selected)} 只股票")
+            notifier.send(strategy_name=strategy_name, symbols=selected)
 
-            if selected:
-                notifier.send(
-                    symbols=selected,
-                    strategy_name=strategy_name,
-                    webhook_key=strategy.webhook_key,
-                )
-            else:
-                logger.info(f"{strategy_name} 无选股结果，跳过推送")
+        # 6. 把结果写入知识库子页面，并把链接回传到群
+        notifier.publish()
+
+        # 7. 写入结构化信号日志（供 CI artifact 归档 + 未来信号追溯）
+        signal_log = {
+            "date": date.today().strftime("%Y-%m-%d"),
+            "run_timestamp": date.today().strftime("%Y-%m-%dT%H:%M:%S") + "+08:00",
+            "strategies": {k: {"count": len(v), "symbols": v} for k, v in daily_signals.items()},
+            "total_unique": len(set(s for syms in daily_signals.values() for s in syms)),
+        }
+        with open("signal_log.json", "w", encoding="utf-8") as f:
+            json.dump(signal_log, f, ensure_ascii=False, indent=2)
 
     except Exception:
         try:

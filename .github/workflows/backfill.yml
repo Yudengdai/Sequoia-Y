@@ -1,0 +1,91 @@
+name: Backfill DB
+
+# 手动触发：全市场历史 K 线一次性回填（~12 分钟，5200+ 只 A 股）
+# 产生初始 SQLite DB，作为每日增量同步的基础
+
+on:
+  workflow_dispatch:
+    inputs:
+      start_date:
+        description: '数据起始日期'
+        required: false
+        default: '2024-01-01'
+        type: string
+
+env:
+  PYTHONUNBUFFERED: '1'
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60   # akshare 回填约 12-20 分钟，留足余量
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run backfill
+        run: uv run python main.py --backfill 2>&1 | tee backfill.log
+        env:
+          DB_PATH: data/sequoia_v2.db
+          START_DATE: ${{ github.event.inputs.start_date || '2024-01-01' }}
+
+      - name: Show DB stats
+        run: |
+          if [ -f data/sequoia_v2.db ]; then
+            echo "=== DB file ==="
+            ls -lh data/sequoia_v2.db
+            echo ""
+            echo "=== Table stats ==="
+            uv run python -c "
+          import sqlite3
+          conn = sqlite3.connect('data/sequoia_v2.db')
+          cur = conn.execute('SELECT COUNT(*) FROM stock_daily')
+          print(f'总行数: {cur.fetchone()[0]}')
+          cur = conn.execute('SELECT COUNT(DISTINCT symbol) FROM stock_daily')
+          print(f'股票数: {cur.fetchone()[0]}')
+          cur = conn.execute('SELECT MIN(date), MAX(date) FROM stock_daily')
+          r = cur.fetchone()
+          print(f'日期范围: {r[0]} ~ {r[1]}')
+          conn.close()
+          "
+          else
+            echo "ERROR: DB 未生成，回填失败"
+            exit 1
+          fi
+
+      # ── 缓存 DB（作为日常增量同步的种子） ──
+      # 用固定 restore-key 让 daily 首次运行能命中
+      - name: Seed DB cache
+        uses: actions/cache@v4
+        with:
+          path: data/sequoia_v2.db
+          key: sequoia-db-seed-${{ github.run_id }}
+          restore-keys: sequoia-db-seed-
+
+      # ── 同时上传 DB artifact（长期备份） ──
+      - name: Upload seed DB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sequoia-db-seed
+          path: data/sequoia_v2.db
+          retention-days: 90
+
+      - name: Upload backfill log
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backfill-log-${{ github.run_id }}
+          path: backfill.log
+          retention-days: 30

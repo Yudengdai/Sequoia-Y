@@ -1,0 +1,84 @@
+name: Daily Run
+
+# 每个交易日北京时间 19:15 自动执行（UTC 11:15）
+# cron 按 UTC 计算：19:15 CST = 11:15 UTC
+on:
+  schedule:
+    - cron: '15 11 * * 1-5'
+  workflow_dispatch:      # 允许手动触发
+
+env:
+  PYTHONUNBUFFERED: '1'
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20   # 足够跑完全流程（~5-8 分钟策略 + 增量同步）
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        run: uv sync
+
+      # ── 恢复数据库缓存 ──
+      # 缓存 key 按 run_id 唯一，restore-keys 回退到上一次的 DB
+      # 如果从未回填过（无缓存命中），当天会优雅跳过
+      - name: Restore DB from cache
+        id: db-cache
+        uses: actions/cache@v4
+        with:
+          path: data/sequoia_v2.db
+          key: sequoia-db-${{ github.run_id }}
+          restore-keys: |
+            sequoia-db-
+            sequoia-db-seed-
+
+      - name: Check DB status
+        run: |
+          if [ -f data/sequoia_v2.db ]; then
+            DB_SIZE=$(du -h data/sequoia_v2.db | cut -f1)
+            echo "DB found: ${DB_SIZE}"
+          else
+            echo "⚠️  DB not found — 首次运行前需执行 backfill"
+            echo "   手动触发 .github/workflows/backfill.yml 或本地回填后上传"
+          fi
+
+      # ── 运行 Sequoia-X ──
+      # 飞书凭据从 GitHub Secrets 注入，无需 .env 文件
+      - name: Run Sequoia-X
+        run: uv run python main.py 2>&1 | tee run.log
+        env:
+          DB_PATH: data/sequoia_v2.db
+          START_DATE: '2024-01-01'
+          FEISHU_APP_ID: ${{ secrets.FEISHU_APP_ID }}
+          FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
+          WIKI_PARENT_NODE: ${{ secrets.WIKI_PARENT_NODE }}
+          GROUP_CHAT_ID: ${{ secrets.GROUP_CHAT_ID }}
+
+      # ── 上传结构化信号日志（供未来信号追溯 + 跨日分析） ──
+      - name: Upload signal log
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: signal-log-${{ github.run_id }}
+          path: signal_log.json
+          retention-days: 90
+
+      # ── 上传运行日志 artifact（保留 30 天） ──
+      - name: Upload run log
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: run-log-${{ github.run_id }}-${{ github.run_attempt }}
+          path: run.log
+          retention-days: 30

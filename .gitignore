@@ -33,6 +33,7 @@ build/
 
 # 日志
 *.log
+signal_log.json
 
 # Hypothesis 测试缓存
 .hypothesis/

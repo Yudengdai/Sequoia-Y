@@ -104,7 +104,7 @@ Sequoia-X/
 │   │   ├── uptrend_limit_down.py # 上升跌停策略
 │   │   └── rps_breakout.py      # RPS 突破策略
 │   └── notify/
-│       └── feishu.py            # 飞书 Webhook 推送
+│       └── feishu.py            # 飞书通知：写知识库子页面 + 回传群链接
 └── tests/                       # 属性测试（hypothesis）
 ```
 

@@ -1,0 +1,61 @@
+[2026-07-31 00:24:21] INFO     __main__ - Sequoia-X V2 启动                     
+[2026-07-31 00:24:21] INFO     sequoia_x.data.engine -                          
+                               数据库初始化完成：data/sequoia_v2.db             
+                      INFO     __main__ - 进入回填模式...                       
+login failed!
+  0%|          | 0/17 [00:00<?, ?it/s]  6%|▌         | 1/17 [00:00<00:03,  5.23it/s] 12%|█▏        | 2/17 [00:00<00:02,  5.99it/s] 18%|█▊        | 3/17 [00:00<00:02,  6.27it/s] 24%|██▎       | 4/17 [00:00<00:02,  6.24it/s] 29%|██▉       | 5/17 [00:00<00:02,  5.91it/s] 35%|███▌      | 6/17 [00:00<00:01,  6.16it/s] 41%|████      | 7/17 [00:01<00:01,  6.34it/s] 47%|████▋     | 8/17 [00:01<00:01,  6.45it/s] 53%|█████▎    | 9/17 [00:01<00:01,  6.64it/s] 59%|█████▉    | 10/17 [00:01<00:01,  6.20it/s] 65%|██████▍   | 11/17 [00:01<00:00,  6.39it/s] 71%|███████   | 12/17 [00:01<00:00,  6.43it/s] 76%|███████▋  | 13/17 [00:02<00:00,  6.53it/s] 82%|████████▏ | 14/17 [00:02<00:00,  6.63it/s] 88%|████████▊ | 15/17 [00:02<00:00,  6.78it/s] 94%|█████████▍| 16/17 [00:02<00:00,  6.86it/s]100%|██████████| 17/17 [00:02<00:00,  6.78it/s]                                               [2026-07-31 00:24:31] INFO     sequoia_x.data.engine - akshare                  
+                               获取股票列表完成，共 5534 只                     
+[FATAL:partition_address_space.cc(243)] Check failed: !IsConfigurablePoolInitialized(). 
+[FATAL:address_pool_manager.cc(67)] Check failed: !pool->IsInitialized(). 
+[FATAL:partition_address_space.cc(243)] Check failed: !IsConfigurablePoolInitialized(). 
+[FATAL:address_pool_manager.cc(67)] Check failed: !pool->IsInitialized(). 
+#00 0x117ddf372  (libmini_racer.dylib+0x1cd3372)
+#00 0x117ddf372  (libmini_racer.dylib+0x1cd3372)
+#00 0x117ddf372  (libmini_racer.dylib+0x1cd3372)
+#00 0x117ddf372  (libmini_racer.dylib+0x1cd3372)
+#01 0x117dddf63  (libmini_racer.dylib+0x1cd1f63)
+#01 0x117dddf63  (libmini_racer.dylib+0x1cd1f63)
+#01 0x117dddf63  (libmini_racer.dylib+0x1cd1f63)
+#01 0x117dddf63  (libmini_racer.dylib+0x1cd1f63)
+#02 0x117de0315  (libmini_racer.dylib+0x1cd4315)
+#02 0x117de0315  (libmini_racer.dylib+0x1cd4315)
+#02 0x117de0d50  (libmini_racer.dylib+0x1cd4d50)
+#02 0x117de0d50  (libmini_racer.dylib+0x1cd4d50)
+#03 0x117de0b69  (libmini_racer.dylib+0x1cd4b69)
+#03 0x117de0b69  (libmini_racer.dylib+0x1cd4b69)
+#04 0x1164ad43d  (libmini_racer.dylib+0x3a143d)
+#03 0x1164ad448  (libmini_racer.dylib+0x3a1448)
+#04 0x1164ad43d  (libmini_racer.dylib+0x3a143d)
+#03 0x1164ad448  (libmini_racer.dylib+0x3a1448)
+#05 0x1164aaf0b  (libmini_racer.dylib+0x39ef0b)
+#05 0x1164aaf0b  (libmini_racer.dylib+0x39ef0b)
+#04 0x1164aaf0b  (libmini_racer.dylib+0x39ef0b)
+#04 0x1164aaf0b  (libmini_racer.dylib+0x39ef0b)
+#05 0x116145157  (libmini_racer.dylib+0x39157)
+#05 0x116145157  (libmini_racer.dylib+0x39157)
+#06 0x116145157  (libmini_racer.dylib+0x39157)
+#06 0x116145157  (libmini_racer.dylib+0x39157)
+#06 0x11611bd86  (libmini_racer.dylib+0xfd86)
+#07 0x11611bd86  (libmini_racer.dylib+0xfd86)
+#06 0x11611bd86  (libmini_racer.dylib+0xfd86)
+#07 0x11611bd86  (libmini_racer.dylib+0xfd86)
+#07 0x11611beed  (libmini_racer.dylib+0xfeed)
+#08 0x11611beed  (libmini_racer.dylib+0xfeed)
+#07 0x11611beed  (libmini_racer.dylib+0xfeed)
+#08 0x11611beed  (libmini_racer.dylib+0xfeed)
+#09 0x116110f3a  (libmini_racer.dylib+0x4f3a)
+#08 0x116110f3a  (libmini_racer.dylib+0x4f3a)
+#08 0x116110f3a  (libmini_racer.dylib+0x4f3a)
+#09 0x116110f3a  (libmini_racer.dylib+0x4f3a)
+#10 0x116119f1e  (libmini_racer.dylib+0xdf1e)
+#10 0x116119f1e  (libmini_racer.dylib+0xdf1e)
+#09 0x116119f1e  (libmini_racer.dylib+0xdf1e)
+#09 0x116119f1e  (libmini_racer.dylib+0xdf1e)
+#11 0x10635975a  (libpython3.13.dylib+0x3f475a)
+#10 0x10635975a  (libpython3.13.dylib+0x3f475a)
+#10 0x10635975a  (libpython3.13.dylib+0x3f475a)
+#11 0x10635975a  (libpython3.13.dylib+0x3f475a)
+#11 0x700009157760  (???+0x700009157760)
+#11 0x70000b15d760  (???+0x70000b15d760)
+#12 0x70000f169760  (???+0x70000f169760)
+#12 0x70000d163760  (???+0x70000d163760)
