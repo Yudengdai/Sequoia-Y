@@ -13,7 +13,7 @@ env:
 jobs:
   daily:
     runs-on: ubuntu-latest
-    timeout-minutes: 20   # 足够跑完全流程（~5-8 分钟策略 + 增量同步）
+    timeout-minutes: 240  # 增量同步需逐只拉取全市场K线（5200+只，实测 ~170 分钟），20 分钟会超时被取消
 
     steps:
       - name: Checkout
@@ -64,6 +64,14 @@ jobs:
           FEISHU_APP_SECRET: ${{ secrets.FEISHU_APP_SECRET }}
           WIKI_PARENT_NODE: ${{ secrets.WIKI_PARENT_NODE }}
           GROUP_CHAT_ID: ${{ secrets.GROUP_CHAT_ID }}
+
+      # ── 运行完成后保存 DB 到缓存，供下次 Daily Run 恢复（避免每次从旧快照全量更新）──
+      - name: Save DB to cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/sequoia_v2.db
+          key: sequoia-db-${{ github.run_id }}
 
       # ── 上传结构化信号日志（供未来信号追溯 + 跨日分析） ──
       - name: Upload signal log
